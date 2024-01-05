@@ -103,10 +103,3 @@ function clearLastChar() {
     currentDisplay.textContent = '0';
   }
 }
-
-// function splitOperationValues(displayValue) {
-//   const operationToDo = displayValue.split(/([-+*\/])/g);
-//   firstNumber = parseFloat(operationToDo[0]);
-//   operator = operationToDo[1];
-//   secondNumber = parseFloat(operationToDo[2]);
-// }
