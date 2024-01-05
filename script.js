@@ -40,6 +40,16 @@ buttons.forEach((button) => {
         }
         currentDisplay.textContent += button.value;
         break;
+      case '=':
+        secondNumber = parseFloat(currentDisplay.textContent);
+        console.log(secondNumber);
+        if (firstNumber && operator && secondNumber) {
+          let result = operate(firstNumber, operator, secondNumber);
+          firstNumber = result;
+          currentDisplay.textContent = result;
+          secondNumber = null;
+        }
+        break;
     }
   })
 })
