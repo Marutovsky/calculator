@@ -1,6 +1,48 @@
+const currentDisplay = document.querySelector('.current-display');
+const buttons = document.querySelectorAll('.buttons > button');
+const _OPERATORS = ['+', '-', '*', '/'];
+const _NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let firstNumber;
 let operator;
 let secondNumber;
+
+buttons.forEach((button) => {
+  button.addEventListener('click', () => {
+    switch (button.value) {
+      case 'AC':
+        clearAll();
+        break;
+      case 'C':
+        clearLastChar();
+        break;
+      case _OPERATORS.find(e => e === button.value):
+        if (!firstNumber) {
+          firstNumber = parseFloat(currentDisplay.textContent);
+          console.log(firstNumber);
+        } else if (firstNumber) {
+          secondNumber = parseFloat(currentDisplay.textContent);
+          console.log(secondNumber);
+        }
+        if (!operator) {
+          operator = button.value;
+          console.log(operator);
+        } else if (operator) {
+          let result = operate(firstNumber, operator, secondNumber);
+          firstNumber = result;
+          currentDisplay.textContent = result;
+          secondNumber = null;
+          operator = button.value;
+        }
+        break;
+      case _NUMBERS.find(e => e === button.value):
+        if (currentDisplay.textContent === '0') {
+          currentDisplay.textContent = '';
+        }
+        currentDisplay.textContent += button.value;
+        break;
+    }
+  })
+})
 
 function operate(firstNumber, operator, secondNumber) {
   let result;
@@ -36,3 +78,25 @@ function multiplyNumbers(a, b) {
 function divideNumbers(a, b) {
   return a / b;
 }
+
+function clearAll() {
+  currentDisplay.textContent = '0';
+  firstNumber = null;
+  secondNumber = null;
+  operator = null;
+  operationToDo = [];
+}
+
+function clearLastChar() {
+  currentDisplay.textContent = currentDisplay.textContent.slice(0, currentDisplay.textContent.length - 1);
+  if (currentDisplay.textContent.length === 0) {
+    currentDisplay.textContent = '0';
+  }
+}
+
+// function splitOperationValues(displayValue) {
+//   const operationToDo = displayValue.split(/([-+*\/])/g);
+//   firstNumber = parseFloat(operationToDo[0]);
+//   operator = operationToDo[1];
+//   secondNumber = parseFloat(operationToDo[2]);
+// }
