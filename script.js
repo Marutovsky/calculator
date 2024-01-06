@@ -16,6 +16,9 @@ buttons.forEach((button) => {
       case 'C':
         clearLastChar();
         break;
+      case '+/-':
+        changeSign();
+        break;
       case _OPERATORS.find(e => e === button.value):
         if (!firstNumber) {
           firstNumber = parseFloat(currentDisplay.textContent);
@@ -107,5 +110,13 @@ function clearLastChar() {
   currentDisplay.textContent = currentDisplay.textContent.slice(0, currentDisplay.textContent.length - 1);
   if (currentDisplay.textContent.length === 0) {
     currentDisplay.textContent = '0';
+  }
+}
+
+function changeSign() {
+  if (currentDisplay.textContent.charAt(0) === '-') {
+    currentDisplay.textContent = currentDisplay.textContent.slice(1, currentDisplay.textContent.length);
+  } else {
+    currentDisplay.textContent = `-${currentDisplay.textContent}`;
   }
 }
