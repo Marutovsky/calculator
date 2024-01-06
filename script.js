@@ -23,40 +23,35 @@ buttons.forEach((button) => {
         if (!firstNumber) {
           firstNumber = parseFloat(currentDisplay.textContent);
           isFirstNumberSet = true;
-          console.log(firstNumber);
         } else if (firstNumber) {
           secondNumber = parseFloat(currentDisplay.textContent);
-          console.log(secondNumber);
         }
         if (!operator) {
           operator = button.value;
-          console.log(operator);
         } else if (operator) {
-          let result = operate(firstNumber, operator, secondNumber);
-          firstNumber = result;
-          currentDisplay.textContent = result;
-          secondNumber = null;
+          calculate();
           operator = button.value;
         }
         break;
       case _NUMBERS.find(e => e === button.value):
-      case '.':
         if (currentDisplay.textContent === '0' || isFirstNumberSet) {
           currentDisplay.textContent = '';
           isFirstNumberSet = false;
         }
         currentDisplay.textContent += button.value;
         break;
+      case '.':
+        if (isFirstNumberSet) {
+          currentDisplay.textContent = '0';
+          isFirstNumberSet = false;
+        }
+        currentDisplay.textContent += button.value;
+        break;
       case '=':
         secondNumber = parseFloat(currentDisplay.textContent);
-        console.log(secondNumber);
         if (firstNumber && operator && secondNumber) {
-          let result = operate(firstNumber, operator, secondNumber);
-          firstNumber = result;
-          currentDisplay.textContent = result;
-          secondNumber = null;
+          calculate();
           operator = null;
-          isFirstNumberSet = true;
         }
         break;
     }
@@ -108,7 +103,7 @@ function clearAll() {
 
 function clearLastChar() {
   currentDisplay.textContent = currentDisplay.textContent.slice(0, currentDisplay.textContent.length - 1);
-  if (currentDisplay.textContent.length === 0) {
+  if (currentDisplay.textContent.length === 0 || currentDisplay.textContent === '-') {
     currentDisplay.textContent = '0';
   }
 }
@@ -119,4 +114,21 @@ function changeSign() {
   } else {
     currentDisplay.textContent = `-${currentDisplay.textContent}`;
   }
+}
+
+function roundLongDecimals(number) {
+  number = number.toString();
+  if (number.includes('.') && number.split('.')[1].length > 10) {
+    return parseFloat(number).toFixed(10);
+  } else {
+    return parseFloat(number);
+  }
+}
+
+function calculate() {
+  let result = operate(firstNumber, operator, secondNumber);
+  firstNumber = roundLongDecimals(result);
+  currentDisplay.textContent = firstNumber;
+  secondNumber = null;
+  isFirstNumberSet = true;
 }
