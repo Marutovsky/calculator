@@ -124,7 +124,8 @@ function changeSign() {
 function roundLongDecimals(number) {
   number = number.toString();
   if (number.includes('.') && number.split('.')[1].length > 10) {
-    return parseFloat(number).toFixed(10);
+    result = parseFloat(number).toFixed(10).toString();
+    return parseFloat(result);
   } else {
     return parseFloat(number);
   }
