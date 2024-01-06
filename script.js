@@ -1,5 +1,6 @@
 const currentDisplay = document.querySelector('.current-display');
 const buttons = document.querySelectorAll('.buttons > button');
+const recentDisplay = document.querySelector('.recent-display');
 const _OPERATORS = ['+', '-', '*', '/'];
 const _NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let firstNumber;
@@ -95,6 +96,7 @@ function divideNumbers(a, b) {
 
 function clearAll() {
   currentDisplay.textContent = '0';
+  recentDisplay.textContent = '';
   firstNumber = null;
   secondNumber = null;
   operator = null;
@@ -126,6 +128,7 @@ function roundLongDecimals(number) {
 }
 
 function calculate() {
+  recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
   let result = operate(firstNumber, operator, secondNumber);
   firstNumber = roundLongDecimals(result);
   currentDisplay.textContent = firstNumber;
