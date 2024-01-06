@@ -35,7 +35,7 @@ buttons.forEach((button) => {
         }
         break;
       case _NUMBERS.find(e => e === button.value):
-        if (currentDisplay.textContent === '0') {
+        if (currentDisplay.textContent === '0' || currentDisplay.textContent == firstNumber) {
           currentDisplay.textContent = '';
         }
         currentDisplay.textContent += button.value;
@@ -48,6 +48,7 @@ buttons.forEach((button) => {
           firstNumber = result;
           currentDisplay.textContent = result;
           secondNumber = null;
+          operator = null;
         }
         break;
     }
@@ -94,7 +95,6 @@ function clearAll() {
   firstNumber = null;
   secondNumber = null;
   operator = null;
-  operationToDo = [];
 }
 
 function clearLastChar() {
