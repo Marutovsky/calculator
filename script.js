@@ -5,6 +5,7 @@ const _NUMBERS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 let firstNumber;
 let operator;
 let secondNumber;
+let isFirstNumberSet = false;
 
 buttons.forEach((button) => {
   button.addEventListener('click', () => {
@@ -18,6 +19,7 @@ buttons.forEach((button) => {
       case _OPERATORS.find(e => e === button.value):
         if (!firstNumber) {
           firstNumber = parseFloat(currentDisplay.textContent);
+          isFirstNumberSet = true;
           console.log(firstNumber);
         } else if (firstNumber) {
           secondNumber = parseFloat(currentDisplay.textContent);
@@ -35,8 +37,10 @@ buttons.forEach((button) => {
         }
         break;
       case _NUMBERS.find(e => e === button.value):
-        if (currentDisplay.textContent === '0' || currentDisplay.textContent == firstNumber) {
+      case '.':
+        if (currentDisplay.textContent === '0' || isFirstNumberSet) {
           currentDisplay.textContent = '';
+          isFirstNumberSet = false;
         }
         currentDisplay.textContent += button.value;
         break;
@@ -49,6 +53,7 @@ buttons.forEach((button) => {
           currentDisplay.textContent = result;
           secondNumber = null;
           operator = null;
+          isFirstNumberSet = true;
         }
         break;
     }
@@ -95,6 +100,7 @@ function clearAll() {
   firstNumber = null;
   secondNumber = null;
   operator = null;
+  isFirstNumberSet = false;
 }
 
 function clearLastChar() {
