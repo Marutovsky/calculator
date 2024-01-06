@@ -29,8 +29,10 @@ buttons.forEach((button) => {
         }
         if (!operator) {
           operator = button.value;
+          button.classList.add('active');
         } else if (operator) {
           calculate();
+          button.classList.add('active');
           operator = button.value;
         }
         break;
@@ -101,6 +103,7 @@ function clearAll() {
   secondNumber = null;
   operator = null;
   isFirstNumberSet = false;
+  buttons.forEach((button) => button.classList.remove('active'));
 }
 
 function clearLastChar() {
@@ -134,4 +137,5 @@ function calculate() {
   currentDisplay.textContent = firstNumber;
   secondNumber = null;
   isFirstNumberSet = true;
+  buttons.forEach((button) => button.classList.remove('active'));
 }
