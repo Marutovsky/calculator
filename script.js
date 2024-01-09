@@ -99,6 +99,9 @@ function clearLastChar() {
 }
 
 function changeSign() {
+  if (currentDisplay.textContent === '0') {
+    currentDisplay.textContent = '';
+  }
   if (currentDisplay.textContent.charAt(0) === '-') {
     currentDisplay.textContent = currentDisplay.textContent.slice(1, currentDisplay.textContent.length);
   } else {
@@ -125,8 +128,8 @@ function calculate() {
   } else {
     recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
     let result = operate(firstNumber, operator, secondNumber);
-    firstNumber = roundLongDecimals(result);
-    currentDisplay.textContent = firstNumber;
+    currentDisplay.textContent = roundLongDecimals(result);
+    firstNumber = null;
     secondNumber = null;
     isFirstNumberSet = true;
     buttons.forEach((button) => button.classList.remove('active'));
