@@ -109,10 +109,10 @@ function changeSign() {
 function roundLongDecimals(number) {
   number = number.toString();
   if (number.includes('.') && number.split('.')[1].length > 10) {
-    result = parseFloat(number).toFixed(10).toString();
-    return parseFloat(result);
+    result = Number(number).toFixed(10).toString();
+    return Number(result);
   } else {
-    return parseFloat(number);
+    return Number(number);
   }
 }
 
@@ -126,7 +126,7 @@ function calculate() {
     recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
     let result = operate(firstNumber, operator, secondNumber);
     currentDisplay.textContent = roundLongDecimals(result);
-    firstNumber = parseFloat(currentDisplay.textContent);
+    firstNumber = Number(currentDisplay.textContent);
     secondNumber = null;
     isFirstNumberSet = true;
     buttons.forEach((button) => button.classList.remove('active'));
@@ -135,9 +135,9 @@ function calculate() {
 
 function setNumbers() {
   if (firstNumber || firstNumber === 0) {
-  secondNumber = parseFloat(currentDisplay.textContent);
+  secondNumber = Number(currentDisplay.textContent);
   } else {
-    firstNumber = parseFloat(currentDisplay.textContent);
+    firstNumber = Number(currentDisplay.textContent);
     isFirstNumberSet = true;
   }
 }
