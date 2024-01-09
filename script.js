@@ -75,7 +75,7 @@ function divideNumbers(a, b) {
 
 function clearAll() {
   currentDisplay.textContent = '0';
-  recentDisplay.textContent = '';
+  recentDisplay.innerText = '\u00A0';
   firstNumber = null;
   secondNumber = null;
   operator = null;
