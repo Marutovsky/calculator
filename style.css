@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -12,6 +14,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: 'Roboto', sans-serif;
 }
 
 .calculator {
@@ -21,6 +24,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #6D6A75;
+  border: 2px solid #37323E;
+  border-radius: 10px;
 }
 
 .display {
@@ -33,6 +39,9 @@ body {
   justify-content: space-around;
   align-items: flex-end;
   padding-right: 20px;
+  background-color: #BFBDC1;
+  border: 2px solid #37323E;
+  border-radius: 10px;
 }
 
 .recent-display {
@@ -51,13 +60,39 @@ body {
   justify-content: space-between;
   align-content: space-between;
   margin: 5% 0;
-  gap: 5%
+  gap: 5%;
 }
 
 .buttons > button {
   font-size: 1.5rem;
   flex: 1 0 60px;
   height: 60px;
+  background-color: #DEB841;
+  border: 2px solid #37323E;
+  border-radius: 10px;
+}
+
+.buttons > button:nth-child(4n+4),
+.buttons > button:nth-child(19) {
+  background-color: #DE9E36;
+}
+
+.buttons > button:nth-child(-n+3) {
+  background-color: #BFBDC1;
+}
+
+button:active {
+  transform: scale(0.9);
+  transition: all 100ms;
+}
+
+button {
+  transition: all 100ms;
+}
+
+.active {
+  font-weight: bold;
+  background-color: #DE541E !important;
 }
 
 .last-row {
@@ -66,9 +101,4 @@ body {
 
 #button-0 {
   flex: 1 0 155px;
-}
-
-.active {
-  font-weight: bold;
-  background-color: aliceblue;
 }

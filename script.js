@@ -147,7 +147,7 @@ function setNumbers() {
 
 function setOperator(button) {
   if (operator) {
-    calculate()
+    calculate();
   }
   operator = button.value;
   button.classList.add('active');
