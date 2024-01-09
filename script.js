@@ -128,7 +128,7 @@ function setNumbers() {
 }
 
 function setOperator(button) {
-  if (!operator) {
+  if (!operator && firstNumber) {
     operator = button.value;
     button.classList.add('active');
   } else if (operator) {
