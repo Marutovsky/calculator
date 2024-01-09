@@ -146,6 +146,7 @@ function setOperator(button) {
   if (operator) {
     calculate();
   }
+  firstNumber = Number(currentDisplay.textContent);
   operator = button.value;
   button.classList.add('active');
 }
