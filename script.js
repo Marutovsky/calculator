@@ -119,23 +119,20 @@ function calculate() {
 }
 
 function setNumbers() {
-  if (!firstNumber) {
+  if (firstNumber || firstNumber === 0) {
+  secondNumber = parseFloat(currentDisplay.textContent);
+  } else {
     firstNumber = parseFloat(currentDisplay.textContent);
     isFirstNumberSet = true;
-  } else if (firstNumber) {
-    secondNumber = parseFloat(currentDisplay.textContent);
   }
 }
 
 function setOperator(button) {
-  if (!operator && firstNumber) {
-    operator = button.value;
-    button.classList.add('active');
-  } else if (operator) {
-    calculate();
-    button.classList.add('active');
-    operator = button.value;
+  if (operator) {
+    calculate()
   }
+  operator = button.value;
+  button.classList.add('active');
 }
 
 function inputNumber(button) {
@@ -159,7 +156,7 @@ function inputPoint(button) {
 }
 
 function evaluate() {
-  if (firstNumber && operator && secondNumber) {
+  if ((firstNumber || firstNumber === 0) && operator && (secondNumber || secondNumber === 0)) {
     calculate();
     operator = null;
   }
