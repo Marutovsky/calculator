@@ -21,45 +21,18 @@ buttons.forEach((button) => {
         changeSign();
         break;
       case _OPERATORS.find(e => e === button.value):
-        if (!firstNumber) {
-          firstNumber = parseFloat(currentDisplay.textContent);
-          isFirstNumberSet = true;
-        } else if (firstNumber) {
-          secondNumber = parseFloat(currentDisplay.textContent);
-        }
-        if (!operator) {
-          operator = button.value;
-          button.classList.add('active');
-        } else if (operator) {
-          calculate();
-          button.classList.add('active');
-          operator = button.value;
-        }
+        setNumbers();
+        setOperator(button);
         break;
       case _NUMBERS.find(e => e === button.value):
-        if (currentDisplay.textContent === '0' || isFirstNumberSet) {
-          currentDisplay.textContent = '';
-          isFirstNumberSet = false;
-        }
-        if (currentDisplay.textContent.length < 20) {
-          currentDisplay.textContent += button.value;
-        }
+        inputNumber(button);
         break;
       case '.':
-        if (isFirstNumberSet) {
-          currentDisplay.textContent = '0';
-          isFirstNumberSet = false;
-        }
-        if (currentDisplay.textContent.length < 20 && !currentDisplay.textContent.includes('.')) {
-          currentDisplay.textContent += button.value;
-        }
+        inputPoint(button);
         break;
       case '=':
-        secondNumber = parseFloat(currentDisplay.textContent);
-        if (firstNumber && operator && secondNumber) {
-          calculate();
-          operator = null;
-        }
+        setNumbers();
+        evaluate();
         break;
     }
   })
@@ -143,4 +116,51 @@ function calculate() {
   secondNumber = null;
   isFirstNumberSet = true;
   buttons.forEach((button) => button.classList.remove('active'));
+}
+
+function setNumbers() {
+  if (!firstNumber) {
+    firstNumber = parseFloat(currentDisplay.textContent);
+    isFirstNumberSet = true;
+  } else if (firstNumber) {
+    secondNumber = parseFloat(currentDisplay.textContent);
+  }
+}
+
+function setOperator(button) {
+  if (!operator) {
+    operator = button.value;
+    button.classList.add('active');
+  } else if (operator) {
+    calculate();
+    button.classList.add('active');
+    operator = button.value;
+  }
+}
+
+function inputNumber(button) {
+  if (currentDisplay.textContent === '0' || isFirstNumberSet) {
+    currentDisplay.textContent = '';
+    isFirstNumberSet = false;
+  }
+  if (currentDisplay.textContent.length < 20) {
+    currentDisplay.textContent += button.value;
+  }
+}
+
+function inputPoint(button) {
+  if (isFirstNumberSet) {
+    currentDisplay.textContent = '0';
+    isFirstNumberSet = false;
+  }
+  if (currentDisplay.textContent.length < 20 && !currentDisplay.textContent.includes('.')) {
+    currentDisplay.textContent += button.value;
+  }
+}
+
+function evaluate() {
+  if (firstNumber && operator && secondNumber) {
+    calculate();
+    operator = null;
+  }
 }
