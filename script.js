@@ -41,14 +41,18 @@ buttons.forEach((button) => {
           currentDisplay.textContent = '';
           isFirstNumberSet = false;
         }
-        currentDisplay.textContent += button.value;
+        if (currentDisplay.textContent.length < 20) {
+          currentDisplay.textContent += button.value;
+        }
         break;
       case '.':
         if (isFirstNumberSet) {
           currentDisplay.textContent = '0';
           isFirstNumberSet = false;
         }
-        currentDisplay.textContent += button.value;
+        if (currentDisplay.textContent.length < 20 && !currentDisplay.textContent.includes('.')) {
+          currentDisplay.textContent += button.value;
+        }
         break;
       case '=':
         secondNumber = parseFloat(currentDisplay.textContent);
