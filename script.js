@@ -40,8 +40,43 @@ buttons.forEach((button) => {
         }
         break;
     }
-  })
-})
+  });
+});
+
+document.addEventListener('keydown', (event) => {
+  switch (event.key) {
+    case 'Delete':
+      clearAll();
+      break;
+    case 'Backspace':
+      clearLastChar();
+      break;
+    case 'Home':
+      changeSign();
+      break;
+    case _OPERATORS.find(e => e == event.key):
+      setNumbers();
+      setOperator(event);
+      break;
+    case _NUMBERS.find(e => e == event.key):
+      inputNumber(event);
+      break;
+    case ',':
+      inputPoint();
+      break;
+    case 'Enter':
+      event.preventDefault();
+      if (!operator) {
+        firstNumber = null;
+        isFirstNumberSet = true;
+      } else {
+        setNumbers();
+        evaluate();
+      }
+      break;
+  }
+  console.log(event.key)
+});
 
 function operate(firstNumber, operator, secondNumber) {
   let result;
@@ -147,8 +182,8 @@ function setOperator(button) {
     calculate();
   }
   firstNumber = Number(currentDisplay.textContent);
-  operator = button.value;
-  button.classList.add('active');
+  operator = (button.value || button.key);
+  // button.classList.add('active');
 }
 
 function inputNumber(button) {
@@ -159,17 +194,17 @@ function inputNumber(button) {
     currentDisplay.textContent = '-';
   } 
   if (currentDisplay.textContent.length < 20) {
-    currentDisplay.textContent += button.value;
+    currentDisplay.textContent += (button.value || button.key);
   }
 }
 
-function inputPoint(button) {
+function inputPoint() {
   if (isFirstNumberSet) {
     currentDisplay.textContent = '0';
     isFirstNumberSet = false;
   }
   if (currentDisplay.textContent.length < 20 && !currentDisplay.textContent.includes('.')) {
-    currentDisplay.textContent += button.value;
+    currentDisplay.textContent += '.';
   }
 }
 
