@@ -31,8 +31,13 @@ buttons.forEach((button) => {
         inputPoint(button);
         break;
       case '=':
-        setNumbers();
-        evaluate();
+        if (!operator) {
+          firstNumber = null;
+          isFirstNumberSet = true;
+        } else {
+          setNumbers();
+          evaluate();
+        }
         break;
     }
   })
@@ -80,7 +85,10 @@ function clearAll() {
   secondNumber = null;
   operator = null;
   isFirstNumberSet = false;
-  buttons.forEach((button) => button.classList.remove('active'));
+  buttons.forEach((button) => {
+    button.classList.remove('active');
+    button.disabled = false;
+  });
 }
 
 function clearLastChar() {
@@ -109,13 +117,20 @@ function roundLongDecimals(number) {
 }
 
 function calculate() {
-  recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
-  let result = operate(firstNumber, operator, secondNumber);
-  firstNumber = roundLongDecimals(result);
-  currentDisplay.textContent = firstNumber;
-  secondNumber = null;
-  isFirstNumberSet = true;
-  buttons.forEach((button) => button.classList.remove('active'));
+  if (operator === '/' && secondNumber === 0) {
+    recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+    currentDisplay.textContent = 'Error';
+    buttons.forEach((button) => button.disabled = true);
+    setTimeout(clearAll, 2000);
+  } else {
+    recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
+    let result = operate(firstNumber, operator, secondNumber);
+    firstNumber = roundLongDecimals(result);
+    currentDisplay.textContent = firstNumber;
+    secondNumber = null;
+    isFirstNumberSet = true;
+    buttons.forEach((button) => button.classList.remove('active'));
+  }
 }
 
 function setNumbers() {
