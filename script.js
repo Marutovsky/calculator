@@ -100,12 +100,9 @@ function clearLastChar() {
 
 function changeSign() {
   if (currentDisplay.textContent === '0') {
-    currentDisplay.textContent = '';
-  }
-  if (currentDisplay.textContent.charAt(0) === '-') {
-    currentDisplay.textContent = currentDisplay.textContent.slice(1, currentDisplay.textContent.length);
+    currentDisplay.textContent = '-0';
   } else {
-    currentDisplay.textContent = `-${currentDisplay.textContent}`;
+  currentDisplay.textContent = -Number(currentDisplay.textContent).toString();
   }
 }
 
@@ -129,7 +126,7 @@ function calculate() {
     recentDisplay.textContent = `${firstNumber} ${operator} ${secondNumber}`;
     let result = operate(firstNumber, operator, secondNumber);
     currentDisplay.textContent = roundLongDecimals(result);
-    firstNumber = null;
+    firstNumber = parseFloat(currentDisplay.textContent);
     secondNumber = null;
     isFirstNumberSet = true;
     buttons.forEach((button) => button.classList.remove('active'));
@@ -157,7 +154,9 @@ function inputNumber(button) {
   if (currentDisplay.textContent === '0' || isFirstNumberSet) {
     currentDisplay.textContent = '';
     isFirstNumberSet = false;
-  }
+  } else if (currentDisplay.textContent.charAt(0) === '-' && currentDisplay.textContent.charAt(1) === '0') {
+    currentDisplay.textContent = '-';
+  } 
   if (currentDisplay.textContent.length < 20) {
     currentDisplay.textContent += button.value;
   }
