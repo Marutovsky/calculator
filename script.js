@@ -75,7 +75,6 @@ document.addEventListener('keydown', (event) => {
       }
       break;
   }
-  console.log(event.key)
 });
 
 function operate(firstNumber, operator, secondNumber) {
@@ -183,7 +182,15 @@ function setOperator(button) {
   }
   firstNumber = Number(currentDisplay.textContent);
   operator = (button.value || button.key);
-  // button.classList.add('active');
+  if (button.key) {
+    buttons.forEach((btn) => {
+      if(btn.value === button.key) {
+        btn.classList.add('active');
+      }
+    })
+  } else {
+    button.classList.add('active');
+  }
 }
 
 function inputNumber(button) {
