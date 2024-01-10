@@ -81,7 +81,8 @@ body {
   background-color: #BFBDC1;
 }
 
-button:active {
+button:active,
+.button-active {
   transform: scale(0.9);
   transition: all 100ms;
 }

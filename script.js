@@ -44,6 +44,19 @@ buttons.forEach((button) => {
 });
 
 document.addEventListener('keydown', (event) => {
+  buttons.forEach((btn) => {
+    if (btn.value === event.key ||
+      (btn.value === '.' && event.key === ',') ||
+      (btn.value === 'AC' && event.key === 'Delete') ||
+      (btn.value === 'C' && event.key === 'Backspace') ||
+      (btn.value === '+/-' && event.key === 'Home') ||
+      (btn.value === '=' && event.key === 'Enter')) {
+      btn.classList.add('button-active');
+      document.addEventListener('keyup', () => {
+        btn.classList.remove('button-active');
+      });
+    }
+  });
   switch (event.key) {
     case 'Delete':
       clearAll();
